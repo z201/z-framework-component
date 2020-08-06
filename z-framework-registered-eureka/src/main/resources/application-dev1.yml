@@ -1,0 +1,28 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: z-eureka-server
+
+eureka:
+  instance:
+    hostname: dev1
+  client:
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:10001/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:10002/eureka/
+      lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+      lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
+
+alarm:
+  open-notice: true
+  project-name: ${spring.application.name}
+  default-notice: zqf
+  token-limit-per-minute: 18
+  ding-talk-web-hook-dev-token:
+    - 442a4d925b5602b682066e81ea51c2ebbffdc73a20a6654607dd6b615b6cd3b4
+    - ea48895fdb3b04317f925f0532d35eabc57333fbec2de5450e887ca1d54c9e5a
+  ding-talk-web-hook-prod-token:
+    - 442a4d925b5602b682066e81ea51c2ebbffdc73a20a6654607dd6b615b6cd3b4
+    - ea48895fdb3b04317f925f0532d35eabc57333fbec2de5450e887ca1d54c9e5a
+  ding-talk-notice:
+    zqf: 13677173510

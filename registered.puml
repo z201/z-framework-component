@@ -1,0 +1,15 @@
+@startuml
+http -[#green]> gateway : Request
+gateway --[#green]> gateway : 白名单
+gateway --[#green]> gateway : 鉴权
+gateway --[#green]> gateway : 限流
+gateway --[#green]> http : 未授权 Response
+http -[#green]> gateway : 授权白名单 Request
+gateway -[#green]> authServer : 授权服务 Request
+authServer --[#green]> http : 身份令牌 Response
+http -[#green]> gateway : Request
+gateway -[#green]> server : 鉴权通过 Request
+server -[#green]> server : 处理业务
+server --[#green]> gateway: Response
+gateway --[#green]> http: Response
+@enduml

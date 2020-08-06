@@ -1,0 +1,87 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencymanagementplugin}"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'java-library'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE'
+    }
+}
+
+dependencies {
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+    compile 'org.springframework.cloud:spring-cloud-starter-security'
+    compile 'org.springframework.boot:spring-boot-configuration-processor'
+    compile 'org.springframework.boot:spring-boot-starter-test'
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile 'org.apache.tomcat.embed:tomcat-embed-core:8.5.37'
+    compile 'org.apache.tomcat.embed:tomcat-embed-el:8.5.37'
+    compile 'org.apache.tomcat.embed:tomcat-embed-logging-juli:8.5.2'
+    compile 'org.apache.tomcat.embed:tomcat-embed-websocket:8.5.37'
+    compile 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile("org.projectlombok:lombok:${lombok}")
+    annotationProcessor("org.projectlombok:lombok:${lombok}")
+
+    //基础项目加载
+    compile project(":z-framework-alarm-core")
+
+}
+
+configurations {
+    // 所有需要忽略的包定义在此
+    //all*.exclude group: 'commons-httpclient'
+    all*.exclude group: 'log4j'
+    all*.exclude group: 'commons-logging'
+    //all*.exclude group: 'ch.qos.logback'
+    //all*.exclude group: "slf4j*"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+
+gradle.taskGraph.whenReady {
+    tasks.each { task ->
+        if (task.name.contains("test")) {
+            task.enabled = false
+        }
+    }
+}
+
+task clearLastBuild(type: Delete) {
+    FileTree tree = fileTree("build")
+    println(tree)
+    tree.visit {
+        ele -> delete ele.file
+    }
+    tree = fileTree("out")
+    println(tree)
+    tree.visit {
+        ele -> delete ele.file
+    }
+}
+
+
+

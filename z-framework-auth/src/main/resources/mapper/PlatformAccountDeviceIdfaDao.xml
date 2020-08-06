@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.z201.cloud.auth.dao.PlatformAccountDeviceIdfaDao">
+    <resultMap id="BaseResultMap" type="cn.z201.cloud.auth.entity.PlatformAccountDeviceIdfa">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="system_code" jdbcType="VARCHAR" property="systemCode"/>
+        <result column="idfa" jdbcType="VARCHAR" property="idfa"/>
+        <result column="platform_account_id" jdbcType="BIGINT" property="platformAccountId"/>
+        <result column="is_del" jdbcType="BIT" property="isDel"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, system_code, idfa, platform_account_id, is_del, update_time, create_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from platform_account_device_idfa
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.z201.cloud.auth.entity.PlatformAccountDeviceIdfa" useGeneratedKeys="true">
+        insert into platform_account_device_idfa
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="systemCode != null">
+                system_code,
+            </if>
+            <if test="idfa != null">
+                idfa,
+            </if>
+            <if test="platformAccountId != null">
+                platform_account_id,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="systemCode != null">
+                #{systemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="idfa != null">
+                #{idfa,jdbcType=VARCHAR},
+            </if>
+            <if test="platformAccountId != null">
+                #{platformAccountId,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=BIT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.z201.cloud.auth.entity.PlatformAccountDeviceIdfa">
+        update platform_account_device_idfa
+        <set>
+            <if test="systemCode != null">
+                system_code = #{systemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="idfa != null">
+                idfa = #{idfa,jdbcType=VARCHAR},
+            </if>
+            <if test="platformAccountId != null">
+                platform_account_id = #{platformAccountId,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=BIT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findBySystemCodeAndIdfaId" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        `platform_account_device_idfa`
+        WHERE
+        system_code = #{systemCode}
+        AND
+        idfa = #{idfa}
+        AND
+        is_del = false
+        LIMIT 0 , 1
+    </select>
+</mapper>

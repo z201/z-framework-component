@@ -1,0 +1,1 @@
+SET gateway_routes:100 '{"uri": "lb://Z-AUTH", "id": "vlink-auth", "predicates": [{ "name": "Path", "args": { "pattern": "/api/v1/platform/authorization/**" } }], "filters":[{ "name": "StripPrefix", "args": { "parts": "3" } }] }'

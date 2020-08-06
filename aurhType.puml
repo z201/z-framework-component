@@ -1,0 +1,5 @@
+@startuml
+type -- 第三方Oauth2: 微信 微博 qq 等等
+type -- 手机号短信 : 手机号 短信验证码
+type -- 账号密码 : 账号（邮箱）密码 图形验证码
+@enduml

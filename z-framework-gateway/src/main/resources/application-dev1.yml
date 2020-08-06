@@ -1,0 +1,16 @@
+spring:
+  redis:
+    host: 49.235.136.189
+    port: 9999
+    database: 6
+    password: password!!!###
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:10000/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:10001/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:10002/eureka/
+      lease-renewal-interval-in-seconds: 5  #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+      lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除

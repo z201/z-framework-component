@@ -1,0 +1,12 @@
+rootProject.name = 'z-framework-component'
+include 'z-framework-gateway'
+include 'z-framework-registered-eureka'
+include 'z-framework-registered-nacos'
+include 'z-framework-alarm-core'
+include 'z-framework-api-core'
+include 'z-framework-api-admin'
+include 'z-framework-auth'
+include 'z-framework-encrypt-core'
+include 'z-framework-auth-core'
+include 'z-framework-core'
+

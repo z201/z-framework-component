@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.z201.cloud.auth.dao.PlatformAccountDao">
+    <resultMap id="BaseResultMap" type="cn.z201.cloud.auth.entity.PlatformAccount">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="uid" jdbcType="VARCHAR" property="uid"/>
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="salt_password" jdbcType="VARCHAR" property="saltPassword"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="is_effective" jdbcType="INTEGER" property="isEffective"/>
+        <result column="old_uid" jdbcType="BIGINT" property="oldUid"/>
+        <result column="system_id" jdbcType="BIGINT" property="systemId"/>
+        <result column="system_code" jdbcType="VARCHAR" property="systemCode"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, `uid`, phone_number, email, `password`, salt_password, salt, is_effective, old_uid, 
+    system_id, system_code, create_time, update_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from platform_account
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.z201.cloud.auth.entity.PlatformAccount" useGeneratedKeys="true">
+        insert into platform_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="phoneNumber != null">
+                phone_number,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="saltPassword != null">
+                salt_password,
+            </if>
+            <if test="salt != null">
+                salt,
+            </if>
+            <if test="isEffective != null">
+                is_effective,
+            </if>
+            <if test="oldUid != null">
+                old_uid,
+            </if>
+            <if test="systemId != null">
+                system_id,
+            </if>
+            <if test="systemCode != null">
+                system_code,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="saltPassword != null">
+                #{saltPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="isEffective != null">
+                #{isEffective,jdbcType=INTEGER},
+            </if>
+            <if test="oldUid != null">
+                #{oldUid,jdbcType=BIGINT},
+            </if>
+            <if test="systemId != null">
+                #{systemId,jdbcType=BIGINT},
+            </if>
+            <if test="systemCode != null">
+                #{systemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.z201.cloud.auth.entity.PlatformAccount">
+        update platform_account
+        <set>
+            <if test="uid != null">
+                `uid` = #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNumber != null">
+                phone_number = #{phoneNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="saltPassword != null">
+                salt_password = #{saltPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="isEffective != null">
+                is_effective = #{isEffective,jdbcType=INTEGER},
+            </if>
+            <if test="oldUid != null">
+                old_uid = #{oldUid,jdbcType=BIGINT},
+            </if>
+            <if test="systemId != null">
+                system_id = #{systemId,jdbcType=BIGINT},
+            </if>
+            <if test="systemCode != null">
+                system_code = #{systemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findByPhoneAndSystemCode" resultMap="BaseResultMap">
+        SELECT * FROM
+        `platform_account`
+        WHERE
+        phone_number = #{phone}
+        AND
+        system_code = #{systemCode}
+        LIMIT 0 , 1
+    </select>
+
+    <select id="existsPhone" resultType="java.lang.String">
+        SELECT
+        phone_number
+        FROM
+        `platform_account`
+        WHERE
+        phone_number = #{phone}
+        AND
+        system_code = #{systemCode}
+        LIMIT 0 , 1
+    </select>
+
+    <select id="findByAccountAndSystemCode" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        `platform_account`
+        WHERE
+        (
+         email = #{account}
+         OR
+         phone_number = #{account}
+        )
+        AND
+        system_code = #{systemCode}
+        LIMIT 0 , 1
+    </select>
+
+    <select id="findByEmailAndSystemCode" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        `platform_account`
+        WHERE
+         email = #{email}
+        AND
+        system_code = #{systemCode}
+        LIMIT 0 , 1
+    </select>
+
+    <select id="existsEmail" resultType="java.lang.String">
+        SELECT
+        email
+        FROM
+        `platform_account`
+        WHERE
+        email = #{email}
+        AND
+        system_code = #{systemCode}
+        LIMIT 0 , 1
+    </select>
+
+    <select id="listAll" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        `platform_account`
+    </select>
+
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.z201.cloud.auth.dao.PlatformSystemOauthDao">
+    <resultMap id="BaseResultMap" type="cn.z201.cloud.auth.entity.PlatformSystemOauth">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="system_code" jdbcType="VARCHAR" property="systemCode"/>
+        <result column="key" jdbcType="VARCHAR" property="key"/>
+        <result column="secret_id" jdbcType="VARCHAR" property="secretId"/>
+        <result column="oauth_type" jdbcType="INTEGER" property="oauthType"/>
+        <result column="enable" jdbcType="INTEGER" property="enable"/>
+        <result column="maintenance_info" jdbcType="VARCHAR" property="maintenanceInfo"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, system_code, `key`, secret_id, oauth_type, `enable`, maintenance_info, create_time, 
+    update_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from platform_system_oauth
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.z201.cloud.auth.entity.PlatformSystemOauth" useGeneratedKeys="true">
+        insert into platform_system_oauth
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="systemCode != null">
+                system_code,
+            </if>
+            <if test="key != null">
+                `key`,
+            </if>
+            <if test="secretId != null">
+                secret_id,
+            </if>
+            <if test="oauthType != null">
+                oauth_type,
+            </if>
+            <if test="enable != null">
+                `enable`,
+            </if>
+            <if test="maintenanceInfo != null">
+                maintenance_info,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="systemCode != null">
+                #{systemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="key != null">
+                #{key,jdbcType=VARCHAR},
+            </if>
+            <if test="secretId != null">
+                #{secretId,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthType != null">
+                #{oauthType,jdbcType=INTEGER},
+            </if>
+            <if test="enable != null">
+                #{enable,jdbcType=INTEGER},
+            </if>
+            <if test="maintenanceInfo != null">
+                #{maintenanceInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.z201.cloud.auth.entity.PlatformSystemOauth">
+        update platform_system_oauth
+        <set>
+            <if test="systemCode != null">
+                system_code = #{systemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="key != null">
+                `key` = #{key,jdbcType=VARCHAR},
+            </if>
+            <if test="secretId != null">
+                secret_id = #{secretId,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthType != null">
+                oauth_type = #{oauthType,jdbcType=INTEGER},
+            </if>
+            <if test="enable != null">
+                `enable` = #{enable,jdbcType=INTEGER},
+            </if>
+            <if test="maintenanceInfo != null">
+                maintenance_info = #{maintenanceInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findBySystemCodeAndOauthType" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        `platform_system_oauth`
+        WHERE
+        system_code = #{systemCode}
+        AND
+        oauth_type = #{oauthType}
+        LIMIT 0 , 1
+    </select>
+
+</mapper>

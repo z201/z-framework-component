@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+
+gradle.taskGraph.whenReady {
+    tasks.each { task ->
+        if (task.name.contains("test")) {
+            task.enabled = false
+        }
+    }
+}
+
+task clearLastBuild(type:Delete){
+    FileTree tree = fileTree("build")
+    println(tree)
+    tree.visit{
+        ele ->delete ele.file
+    }
+    tree = fileTree("out")
+    println(tree)
+    tree.visit{
+        ele ->delete ele.file
+    }
+}

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.z201.cloud.auth.dao.PlatformAccountRegisteredLogDao">
+  <resultMap id="BaseResultMap" type="cn.z201.cloud.auth.entity.PlatformAccountRegisteredLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="account_id" jdbcType="BIGINT" property="accountId" />
+    <result column="registered_ip" jdbcType="VARCHAR" property="registeredIp" />
+    <result column="registered_client" jdbcType="INTEGER" property="registeredClient" />
+    <result column="registered_source" jdbcType="INTEGER" property="registeredSource" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account_id, registered_ip, registered_client, registered_source, channel, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from platform_account_registered_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.z201.cloud.auth.entity.PlatformAccountRegisteredLog" useGeneratedKeys="true">
+    insert into platform_account_registered_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="registeredIp != null">
+        registered_ip,
+      </if>
+      <if test="registeredClient != null">
+        registered_client,
+      </if>
+      <if test="registeredSource != null">
+        registered_source,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accountId != null">
+        #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="registeredIp != null">
+        #{registeredIp,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredClient != null">
+        #{registeredClient,jdbcType=INTEGER},
+      </if>
+      <if test="registeredSource != null">
+        #{registeredSource,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.z201.cloud.auth.entity.PlatformAccountRegisteredLog">
+    update platform_account_registered_log
+    <set>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="registeredIp != null">
+        registered_ip = #{registeredIp,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredClient != null">
+        registered_client = #{registeredClient,jdbcType=INTEGER},
+      </if>
+      <if test="registeredSource != null">
+        registered_source = #{registeredSource,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

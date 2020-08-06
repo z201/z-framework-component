@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.z201.cloud.auth.dao.PlatformAccountOauthDao">
+    <resultMap id="BaseResultMap" type="cn.z201.cloud.auth.entity.PlatformAccountOauth">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="uid" jdbcType="VARCHAR" property="uid"/>
+        <result column="account_id" jdbcType="BIGINT" property="accountId"/>
+        <result column="system_code" jdbcType="VARCHAR" property="systemCode"/>
+        <result column="oauth_name" jdbcType="VARCHAR" property="oauthName"/>
+        <result column="oauth_code" jdbcType="INTEGER" property="oauthCode"/>
+        <result column="oauth_id" jdbcType="VARCHAR" property="oauthId"/>
+        <result column="oauth_open_id" jdbcType="VARCHAR" property="oauthOpenId"/>
+        <result column="oauth_user_name" jdbcType="VARCHAR" property="oauthUserName"/>
+        <result column="oauth_access_token" jdbcType="VARCHAR" property="oauthAccessToken"/>
+        <result column="oauth_refresh_token" jdbcType="VARCHAR" property="oauthRefreshToken"/>
+        <result column="oauth_expires" jdbcType="BIGINT" property="oauthExpires"/>
+        <result column="oauth_scope" jdbcType="VARCHAR" property="oauthScope"/>
+        <result column="is_effective" jdbcType="INTEGER" property="isEffective"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="update_time" jdbcType="BIGINT" property="updateTime"/>
+        <result column="oauth_json_data" jdbcType="VARCHAR" property="oauthJsonData"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, `uid`, account_id, system_code, oauth_name, oauth_code, oauth_id, oauth_open_id, 
+    oauth_user_name, oauth_access_token, oauth_refresh_token, oauth_expires, oauth_scope, 
+    is_effective, create_time, update_time, oauth_json_data
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from platform_account_oauth
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.z201.cloud.auth.entity.PlatformAccountOauth" useGeneratedKeys="true">
+        insert into platform_account_oauth
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="accountId != null">
+                account_id,
+            </if>
+            <if test="systemCode != null">
+                system_code,
+            </if>
+            <if test="oauthName != null">
+                oauth_name,
+            </if>
+            <if test="oauthCode != null">
+                oauth_code,
+            </if>
+            <if test="oauthId != null">
+                oauth_id,
+            </if>
+            <if test="oauthOpenId != null">
+                oauth_open_id,
+            </if>
+            <if test="oauthUserName != null">
+                oauth_user_name,
+            </if>
+            <if test="oauthAccessToken != null">
+                oauth_access_token,
+            </if>
+            <if test="oauthRefreshToken != null">
+                oauth_refresh_token,
+            </if>
+            <if test="oauthExpires != null">
+                oauth_expires,
+            </if>
+            <if test="oauthScope != null">
+                oauth_scope,
+            </if>
+            <if test="isEffective != null">
+                is_effective,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="oauthJsonData != null">
+                oauth_json_data,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="accountId != null">
+                #{accountId,jdbcType=BIGINT},
+            </if>
+            <if test="systemCode != null">
+                #{systemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthName != null">
+                #{oauthName,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthCode != null">
+                #{oauthCode,jdbcType=INTEGER},
+            </if>
+            <if test="oauthId != null">
+                #{oauthId,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthOpenId != null">
+                #{oauthOpenId,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthUserName != null">
+                #{oauthUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthAccessToken != null">
+                #{oauthAccessToken,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthRefreshToken != null">
+                #{oauthRefreshToken,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthExpires != null">
+                #{oauthExpires,jdbcType=BIGINT},
+            </if>
+            <if test="oauthScope != null">
+                #{oauthScope,jdbcType=VARCHAR},
+            </if>
+            <if test="isEffective != null">
+                #{isEffective,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=BIGINT},
+            </if>
+            <if test="oauthJsonData != null">
+                #{oauthJsonData,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.z201.cloud.auth.entity.PlatformAccountOauth">
+        update platform_account_oauth
+        <set>
+            <if test="uid != null">
+                `uid` = #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="accountId != null">
+                account_id = #{accountId,jdbcType=BIGINT},
+            </if>
+            <if test="systemCode != null">
+                system_code = #{systemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthName != null">
+                oauth_name = #{oauthName,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthCode != null">
+                oauth_code = #{oauthCode,jdbcType=INTEGER},
+            </if>
+            <if test="oauthId != null">
+                oauth_id = #{oauthId,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthOpenId != null">
+                oauth_open_id = #{oauthOpenId,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthUserName != null">
+                oauth_user_name = #{oauthUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthAccessToken != null">
+                oauth_access_token = #{oauthAccessToken,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthRefreshToken != null">
+                oauth_refresh_token = #{oauthRefreshToken,jdbcType=VARCHAR},
+            </if>
+            <if test="oauthExpires != null">
+                oauth_expires = #{oauthExpires,jdbcType=BIGINT},
+            </if>
+            <if test="oauthScope != null">
+                oauth_scope = #{oauthScope,jdbcType=VARCHAR},
+            </if>
+            <if test="isEffective != null">
+                is_effective = #{isEffective,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=BIGINT},
+            </if>
+            <if test="oauthJsonData != null">
+                oauth_json_data = #{oauthJsonData,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findByOauthIdAndSystemCodeAndOauthCode" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        `platform_account_oauth`
+        WHERE
+        oauth_id = #{oauthId}
+        AND
+        system_code = #{systemCode}
+        AND
+        oauth_code = #{oauthCode}
+        LIMIT 0 , 1
+    </select>
+
+    <select id="listByAccountId" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        `platform_account_oauth`
+        WHERE
+        account_id = #{accountId}
+        AND
+        is_effective = 1
+    </select>
+
+    <select id="listByOauthIdAndSystemCode" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        `platform_account_oauth`
+        WHERE
+        oauth_id = #{oauthId}
+        AND
+        system_code = #{systemCode}
+    </select>
+
+    <select id="listByAccountIdAndSystemCode" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        `platform_account_oauth`
+        WHERE
+        account_id = #{accountId}
+        AND
+        system_code = #{systemCode}
+        AND
+        is_effective = 1
+    </select>
+
+    <update id="updateEffectiveAccountIdAndSystemCode">
+        UPDATE
+        `platform_account_oauth`
+        SET
+        is_effective = #{effective},
+        account_id = 0
+        WHERE
+        account_id = #{accountId}
+        AND
+        system_code = #{systemCode}
+    </update>
+
+</mapper>

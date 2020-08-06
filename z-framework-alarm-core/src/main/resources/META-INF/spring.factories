@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.z201.cloud.alarm.core.AlarmNoticeConfig
+
